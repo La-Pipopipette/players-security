@@ -1,0 +1,40 @@
+quarkus:
+  http:
+    port: 10000
+    cors: true
+  smallrye-jwt:
+      enabled: true
+  log:
+    level: INFO
+  ssl:
+    native: true
+  native:
+    additional-build-args: -H:ReflectionConfigurationFiles=reflection-config.json
+mp:
+  jwt:
+    verify:
+      issuer: fr.pipopipette
+      publickey:
+        location: file:///webapps/pipopipette/back/security/publicKey.pem
+smallrye:
+  jwt:
+    sign:
+      key-location: file:///webapps/pipopipette/back/security/privateKey.pem
+pipopipette:
+  jwt:
+    duration: 300000
+
+"%dev":
+  quarkus:
+    log:
+      level: DEBUG
+  mp:
+   jwt:
+     verify:
+       issuer: fr.pipopipette
+       publickey:
+         location: classpath:/META-INF/resources/publicKey.pem
+  smallrye:
+   jwt:
+     sign:
+       key-location: classpath:/META-INF/resources/privateKey.pem
